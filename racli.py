@@ -10,6 +10,8 @@ import requests
 import io
 from datetime import datetime, timezone
 from pypresence import Presence
+from pypresence.types import ActivityType
+from pypresence.types import StatusDisplayType
 
 term = Terminal()
 
@@ -432,8 +434,11 @@ def main():
             
                 if rpc_connected:
                     RPC.update(
-                        state=trimmer(ra_userdata["RichPresenceMsg"]),
-                        details=ra_game_data['GameTitle'],
+                        activity_type=ActivityType.PLAYING,
+                        status_display_type=StatusDisplayType.NAME,
+                        name= ra_game_data['GameTitle'],
+                        details= trimmer(ra_userdata["RichPresenceMsg"]),
+                        state= rpc_achi,
                         start=start_time,
                         large_image=f"https://media.retroachievements.org{ra_game_data['ImageIcon']}",
                         large_text=rpc_achi,
